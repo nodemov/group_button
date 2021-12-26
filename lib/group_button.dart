@@ -12,6 +12,7 @@ class GroupButton extends StatelessWidget {
     Key? key,
     required this.buttons,
     required this.onSelected,
+    required this.images,
     this.disabledButtons,
     this.selectedButtons,
     this.isRadio = true,
@@ -62,6 +63,9 @@ class GroupButton extends StatelessWidget {
 
   /// [int] button ids that are disabled.
   final List<int>? disabledButtons;
+
+  /// [String] list that will be displayed on buttons in the [GroupButton]
+  final List<String> images;
 
   /// [int] button ids that is selected initially.
   /// /// Using when [isRadio] is false
@@ -142,6 +146,7 @@ class GroupButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GroupButtonBody(
       buttons: buttons,
+      images: images,
       disabledButtons: disabledButtons,
       selectedButtons: selectedButtons,
       selectedButton: selectedButton,

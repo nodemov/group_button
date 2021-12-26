@@ -5,13 +5,14 @@ class GroupCustomButton extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.text,
+    required this.image,
     required this.isSelected,
     this.selectedBorderColor,
-    this.unselectedBorderColor,
+    required this.unselectedBorderColor,
     this.selectedTextStyle,
     this.unselectedTextStyle,
     this.selectedColor,
-    this.unselectedColor,
+    required this.unselectedColor,
     this.borderRadius,
     this.selectedShadow,
     this.unselectedShadow,
@@ -24,6 +25,7 @@ class GroupCustomButton extends StatelessWidget {
   }) : super(key: key);
 
   final String text;
+  final String image;
   final void Function()? onPressed;
   final bool isSelected;
   final TextStyle? selectedTextStyle;
@@ -75,20 +77,28 @@ class GroupCustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          elevation: elevation ?? 0.0,
-          primary: _getBackGroundColor(theme),
-          shape: _buildShape(),
-          padding: (width != null || height != null) ? EdgeInsets.zero : null,
-          alignment: (width != null || height != null) ? alignment : null,
-        ),
-        child: Padding(
-          padding: textPadding,
-          child: Text(
-            text,
-            textAlign: textAlign,
-            style: _textStyle,
+          side: BorderSide(
+            color: isSelected ? Color(0xFFFFFFFF) : Color(0xFF007468),
           ),
+          elevation: 0.0,
+          primary: isSelected ? Color(0xFF007468) : Color(0xFFFFFFFF),
+          minimumSize: Size.zero, // <-- Add this
+          padding: EdgeInsets.zero, // <-- and this
         ),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                '    $text',
+                style: isSelected ? selectedTextStyle : unselectedTextStyle,
+              ),
+                Image.network(
+                image,
+                fit: BoxFit.cover,
+                width: 145,
+                height: 49,
+              ),
+            ]),
       ),
     );
   }

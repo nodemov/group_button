@@ -18,6 +18,10 @@ class _GroupButtonWrapperState extends State<GroupButtonWrapper> {
         onSelected: (index, _) {
           setState(() => buttons.removeAt(index));
         },
+        images: [
+          "https://api.thesilpa.com/storage/product/category/81MleLS4UNRGa.png",
+          "https://api.thesilpa.com/storage/product/category/99uCZVEc6I13j.png"
+        ],
       ),
     );
   }

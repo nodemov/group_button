@@ -7,6 +7,7 @@ class GroupButtonBody extends StatefulWidget {
   const GroupButtonBody({
     Key? key,
     required this.buttons,
+   required this.images,
     required this.onSelected,
     this.selectedBorderColor,
     this.unselectedBorderColor,
@@ -37,6 +38,7 @@ class GroupButtonBody extends StatefulWidget {
   }) : super(key: key);
 
   final List<String> buttons;
+  final List<String> images;
   final List<int>? disabledButtons;
   final List<int>? selectedButtons;
   final int? selectedButton;
@@ -75,6 +77,8 @@ class _GroupButtonBodyState extends State<GroupButtonBody> {
   int? _selectedIndex;
   final Map<int, bool> _selectedIndexes = {};
 
+  //  List<String> images;
+
   @override
   void initState() {
     super.initState();
@@ -104,13 +108,13 @@ class _GroupButtonBodyState extends State<GroupButtonBody> {
         return Row(
           mainAxisAlignment: widget.mainGroupAlignment.toAxis(),
           crossAxisAlignment: widget.crossGroupAlignment.toAxis(),
-          children: _buildButtonsList(widget.buttons),
+          children: _buildButtonsList(widget.buttons,widget.images),
         );
       case GroupingType.column:
         return Column(
           mainAxisAlignment: widget.mainGroupAlignment.toAxis(),
           crossAxisAlignment: widget.crossGroupAlignment.toAxis(),
-          children: _buildButtonsList(widget.buttons),
+          children: _buildButtonsList(widget.buttons,widget.images),
         );
 
       case GroupingType.wrap:
@@ -122,7 +126,7 @@ class _GroupButtonBodyState extends State<GroupButtonBody> {
           crossAxisAlignment: widget.crossGroupAlignment.toWrap(),
           runAlignment: widget.groupRunAlignment.toWrap(),
           alignment: widget.mainGroupAlignment.toWrap(),
-          children: _buildButtonsList(widget.buttons),
+          children: _buildButtonsList(widget.buttons,widget.images),
         );
     }
   }
@@ -135,11 +139,13 @@ class _GroupButtonBodyState extends State<GroupButtonBody> {
 
   List<Widget> _buildButtonsList(
     List<String> buttons,
+      List<String> images,
   ) {
     final rebuildedButtons = <Widget>[];
     for (var i = 0; i < buttons.length; i++) {
       Widget rebuidedButton = GroupCustomButton(
         text: buttons[i],
+        image:images[i],
         onPressed: (widget.disabledButtons?.contains(i) ?? false)
             ? null
             : () {
